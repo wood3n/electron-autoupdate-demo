@@ -33,6 +33,7 @@
       "package.json"
     ],
     "asar": true,
+    "electronLanguages": ["zh-CN"],
     "directories": {
       "buildResources": "build"
     },
