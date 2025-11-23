@@ -8,13 +8,9 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "node node_modules/electron/install.js",
-    "start": "electron .",
     "dev": "cross-env NODE_ENV=development electron .",
-    "build": "electron-builder",
-    "release": "electron-builder --publish always",
-    "release:it": "release-it",
-    "changelog": "release-it --no-git.tag --no-git.commit --no-git.push --no-increment --github.release false",
-    "test": "vitest run"
+    "build": "electron-builder --publish always",
+    "release": "release-it"
   },
   "dependencies": {
     "electron-log": "^5.4.3",
@@ -25,8 +21,7 @@
     "cross-env": "^10.1.0",
     "electron": "^39.2.3",
     "electron-builder": "^26.0.12",
-    "release-it": "^17.11.0",
-    "vitest": "^4.0.13"
+    "release-it": "^17.11.0"
   },
   "build": {
     "appId": "com.example.electronautoupdatedemo",
@@ -43,7 +38,9 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
@@ -67,7 +64,9 @@
     },
     "github": {
       "release": true,
-      "tokenRef": "GITHUB_TOKEN"
+      "releaseName": "v${version}",
+      "draft": false,       
+      "tokenRef": "GH_TOKEN"
     },
     "npm": {
       "publish": false
