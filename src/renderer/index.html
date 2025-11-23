@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'; connect-src 'self' https://api.github.com https://github.com;"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Electron 自动更新演示</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Arial;
+        margin: 24px;
+      }
+      .row {
+        margin-bottom: 12px;
+      }
+      button {
+        padding: 8px 12px;
+      }
+      pre {
+        background: #f5f5f5;
+        padding: 12px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Electron 自动更新演示</h1>
+    <div class="row">
+      <button id="btnCheck">检查更新</button>
+      <button id="btnDownload" disabled>下载更新</button>
+      <button id="btnInstall" disabled>退出并安装</button>
+    </div>
+    <div class="row"><strong>状态：</strong> <span id="status">就绪</span></div>
+    <div class="row"><strong>进度：</strong> <span id="progress">-</span></div>
+    <pre id="log"></pre>
+    <script src="renderer.js"></script>
+  </body>
+</html>
