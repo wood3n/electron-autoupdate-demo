@@ -8,7 +8,7 @@ const UPDATE_MODE = process.env.UPDATE_MODE || "prompt"; // 'prompt' | 'immediat
 
 log.initialize({ preload: true });
 autoUpdater.logger = log;
-autoUpdater.autoDownload = UPDATE_MODE === "immediate";
+autoUpdater.autoDownload = false;
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -55,10 +55,26 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
+async function checkForUpdates() {
+  // 获取当前应用的版本
+  const currentVersion = autoUpdater.currentVersion.prerelease; // 返回数组，如 ['beta', '0']
+  
+  // 策略 A: 如果当前安装的就是 beta 版，那就继续检查 beta 更新
+  if (currentVersion.includes('beta')) {
+     autoUpdater.channel = 'beta';
+  } else if (currentVersion.includes('alpha')) {
+     autoUpdater.channel = 'alpha';
+  } else {
+     autoUpdater.channel = 'latest'; 
+  }
+
+  await autoUpdater.checkForUpdates();
+}
+
 ipcMain.handle("check-for-updates", async () => {
   try {
     log.info("Checking for updates...");
-    const result = await autoUpdater.checkForUpdates();
+    const result = await checkForUpdates();
     return { ok: true, versionInfo: result?.updateInfo || null };
   } catch (err) {
     log.error(err);
@@ -101,11 +117,6 @@ autoUpdater.on("update-available", (info) => {
       info,
     })
   );
-  if (UPDATE_MODE === "immediate") {
-    autoUpdater
-      .downloadUpdate()
-      .catch((err) => log.error("download error", err));
-  }
 });
 
 autoUpdater.on("update-not-available", (info) => {

@@ -10,7 +10,9 @@
     "postinstall": "node node_modules/electron/install.js",
     "dev": "cross-env NODE_ENV=development electron .",
     "build": "electron-builder --publish always",
-    "release": "release-it"
+    "release": "release-it",
+    "release:beta": "release-it --preRelease=beta",
+    "release:alpha": "release-it --preRelease=alpha"
   },
   "dependencies": {
     "electron-log": "^5.4.3",
