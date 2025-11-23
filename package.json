@@ -1,6 +1,6 @@
 {
   "name": "electron-autoupdate-demo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Electron auto-update demo with electron-builder and electron-updater",
   "private": true,
   "main": "src/main.js",
@@ -65,7 +65,7 @@
     "github": {
       "release": true,
       "releaseName": "v${version}",
-      "draft": false,       
+      "draft": false,
       "tokenRef": "GH_TOKEN"
     },
     "npm": {
