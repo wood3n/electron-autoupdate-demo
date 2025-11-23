@@ -1,5 +1,12 @@
 # Changelog
 
+# [0.2.0-beta.1](https://github.com/wood3n/electron-autoupdate-demo/compare/v0.2.0-beta.0...v0.2.0-beta.1) (2025-11-23)
+
+
+### Bug Fixes
+
+* remove useless locale ([b045e80](https://github.com/wood3n/electron-autoupdate-demo/commit/b045e8077a6ae336fca026952e3b748b526def1b))
+
 # [0.2.0-beta.0](https://github.com/wood3n/electron-autoupdate-demo/compare/v0.1.1...v0.2.0-beta.0) (2025-11-23)
 
 
