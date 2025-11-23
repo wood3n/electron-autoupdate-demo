@@ -12,6 +12,8 @@
     "dev": "cross-env NODE_ENV=development electron .",
     "build": "electron-builder",
     "release": "electron-builder --publish always",
+    "release:it": "release-it",
+    "changelog": "release-it --no-git.tag --no-git.commit --no-git.push --no-increment --github.release false",
     "test": "vitest run"
   },
   "dependencies": {
@@ -19,9 +21,12 @@
     "electron-updater": "^6.6.2"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^7.0.2",
     "cross-env": "^10.1.0",
     "electron": "^39.2.3",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "release-it": "^17.11.0",
+    "vitest": "^4.0.13"
   },
   "build": {
     "appId": "com.example.electronautoupdatedemo",
@@ -40,19 +45,6 @@
       ],
       "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
     },
-    "mac": {
-      "target": [
-        "dmg"
-      ],
-      "category": "public.app-category.developer-tools",
-      "hardenedRuntime": true
-    },
-    "linux": {
-      "target": [
-        "AppImage"
-      ],
-      "category": "Utility"
-    },
     "publish": [
       {
         "provider": "github",
@@ -61,5 +53,29 @@
         "releaseType": "release"
       }
     ]
+  },
+  "release-it": {
+    "git": {
+      "requireBranch": "main",
+      "requireCleanWorkDir": true,
+      "tagName": "v${version}",
+      "commitMessage": "chore: release v${version}",
+      "push": true
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_TOKEN"
+    },
+    "npm": {
+      "publish": false
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md",
+        "header": "# Changelog",
+        "releaseCount": 1
+      }
+    }
   }
 }
