@@ -25,6 +25,7 @@ window.api.onUpdateMessage(msg => {
       appendLog('正在检查更新…')
       break
     case 'available':
+      console.log(msg.info)
       statusEl.textContent = `发现更新：v${msg.info?.version}`
       btnDownload.disabled = false
       appendLog(`发现更新：${JSON.stringify(msg.info, null, 2)}`)

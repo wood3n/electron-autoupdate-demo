@@ -36,11 +36,9 @@ function createWindow() {
 
   win.loadFile(path.join(__dirname, "renderer", "index.html"));
 
-  if (!app.isPackaged) {
-    win.webContents.openDevTools({
-      mode: "bottom",
-    });
-  }
+  win.webContents.openDevTools({
+    mode: "bottom",
+  });
 }
 
 app.whenReady().then(async () => {
