@@ -1,5 +1,7 @@
 # Changelog
 
+# [0.2.0-beta.2](https://github.com/wood3n/electron-autoupdate-demo/compare/v0.2.0-beta.1...v0.2.0-beta.2) (2025-11-24)
+
 # [0.2.0-beta.1](https://github.com/wood3n/electron-autoupdate-demo/compare/v0.2.0-beta.0...v0.2.0-beta.1) (2025-11-23)
 
 
