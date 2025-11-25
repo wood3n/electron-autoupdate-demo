@@ -19,7 +19,7 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
-      devTools: isDev,
+      devTools: true,
     },
   });
 
@@ -73,6 +73,7 @@ ipcMain.handle("check-for-updates", async () => {
   try {
     log.info("Checking for updates...");
     const result = await checkForUpdates();
+    console.log(result);
     return { ok: true, versionInfo: result?.updateInfo || null };
   } catch (err) {
     log.error(err);
@@ -112,7 +113,7 @@ autoUpdater.on("update-available", (info) => {
   BrowserWindow.getAllWindows().forEach((w) =>
     w.webContents.send("update-message", {
       type: "available",
-      info,
+      info: info.releaseNotes,
     })
   );
 });

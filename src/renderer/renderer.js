@@ -54,6 +54,7 @@ window.api.onUpdateMessage(msg => {
 
 btnCheck.addEventListener('click', async () => {
   const res = await window.api.checkForUpdates()
+  console.log(res);
   if (!res.ok) appendLog(`检查失败：${res.error}`)
 })
 
