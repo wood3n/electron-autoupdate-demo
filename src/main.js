@@ -73,8 +73,7 @@ ipcMain.handle("check-for-updates", async () => {
   try {
     log.info("Checking for updates...");
     const result = await checkForUpdates();
-    console.log(result);
-    return { ok: true, versionInfo: result?.updateInfo || null };
+    return { ok: true, result, versionInfo: result?.updateInfo || null };
   } catch (err) {
     log.error(err);
     return { ok: false, error: String(err) };
@@ -83,8 +82,8 @@ ipcMain.handle("check-for-updates", async () => {
 
 ipcMain.handle("download-update", async () => {
   try {
-    await autoUpdater.downloadUpdate();
-    return { ok: true };
+    const res = await autoUpdater.downloadUpdate();
+    return { ok: true, res };
   } catch (err) {
     log.error(err);
     return { ok: false, error: String(err) };
@@ -113,7 +112,7 @@ autoUpdater.on("update-available", (info) => {
   BrowserWindow.getAllWindows().forEach((w) =>
     w.webContents.send("update-message", {
       type: "available",
-      info: info.releaseNotes,
+      info,
     })
   );
 });

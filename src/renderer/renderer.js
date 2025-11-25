@@ -19,6 +19,8 @@ function appendLog(line) {
 }
 
 window.api.onUpdateMessage(msg => {
+  console.log('【update-message】', msg)
+
   switch (msg.type) {
     case 'checking':
       statusEl.textContent = '正在检查更新…'
@@ -35,7 +37,8 @@ window.api.onUpdateMessage(msg => {
       appendLog('暂无可用更新')
       break
     case 'progress':
-      const { percent, transferred, total, bytesPerSecond } = msg.progress
+      const { percent, transferred, total, bytesPerSecond } = msg.progress;
+      console.log('【progress】', msg.progress)
       progressEl.textContent = `${percent.toFixed(1)}%  ${formatBytes(transferred)} / ${formatBytes(total)}  @ ${formatBytes(bytesPerSecond)}/s`
       break
     case 'downloaded':
@@ -54,13 +57,14 @@ window.api.onUpdateMessage(msg => {
 
 btnCheck.addEventListener('click', async () => {
   const res = await window.api.checkForUpdates()
-  console.log(res);
+  console.log('【checkForUpdates】', res);
   if (!res.ok) appendLog(`检查失败：${res.error}`)
 })
 
 btnDownload.addEventListener('click', async () => {
   btnDownload.disabled = true
   const res = await window.api.downloadUpdate()
+  console.log('【downloadUpdate】', res)
   if (!res.ok) appendLog(`下载失败：${res.error}`)
 })
 
