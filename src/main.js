@@ -3,9 +3,6 @@ const path = require("path");
 const log = require("electron-log");
 const { autoUpdater } = require("electron-updater");
 
-const isDev = process.env.NODE_ENV === "development";
-const UPDATE_MODE = process.env.UPDATE_MODE || "prompt"; // 'prompt' | 'immediate'
-
 log.initialize({ preload: true });
 autoUpdater.logger = log;
 autoUpdater.autoDownload = false;
@@ -151,13 +148,12 @@ autoUpdater.on("update-downloaded", (info) => {
       info,
     })
   );
-  if (UPDATE_MODE === "immediate") {
-    dialog
+  
+  dialog
       .showMessageBox({
         type: "info",
         title: "Update ready",
         message: "Update downloaded. The app will now restart to install.",
       })
       .then(() => autoUpdater.quitAndInstall());
-  }
 });
